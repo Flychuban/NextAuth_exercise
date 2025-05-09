@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import GitHub from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
 import db from "./db"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { userSchema } from "./zod_schema"
@@ -9,7 +10,7 @@ import { encode } from "next-auth/jwt"
 
 const prismaAdapter = PrismaAdapter(db)
 
-export const { auth, handlers, signIn } = NextAuth({adapter: prismaAdapter, providers: [GitHub, Credentials({
+export const { auth, handlers, signIn } = NextAuth({adapter: prismaAdapter, providers: [GitHub, Google, Credentials({
     credentials: {
         email: {},
         password: {}
