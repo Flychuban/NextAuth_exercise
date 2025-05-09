@@ -1,6 +1,10 @@
 import { SignOut } from "@/components/sign-out";
 import { auth } from "@/lib/auth";
+import Image from "next/image";
 import { redirect } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { User } from "lucide-react";
+
 
 
 const Page = async () => {
@@ -16,7 +20,16 @@ const Page = async () => {
       <div className="bg-gray-100 rounded-lg p-4 text-center mb-6">
         <p className="text-gray-600">Signed in as: {session.user?.email}</p>
         <div className="flex justify-center mt-2">
-          <img src={session.user?.image} alt="User's Avatar" className="w-16 h-16" />
+          <Avatar>
+            {session.user?.image ? (
+              <AvatarImage src={session.user.image || undefined} alt="User Avatar" />
+            ) : null}
+            <AvatarFallback>
+              {session.user?.image
+                ? session.user?.name?.charAt(0)
+                : <User className="w-5 h-5" />}
+            </AvatarFallback>
+          </Avatar>
         </div>
       </div>
 
